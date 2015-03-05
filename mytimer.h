@@ -8,7 +8,7 @@
 
 #include "myutils.h"
 #include <ctime>
-#if __cplusplus > 201100L
+#ifdef CPP_11
 #include <chrono>
 #endif
 
@@ -53,7 +53,7 @@ protected:
 	Resolution scale;
 };
 
-#if __cplusplus > 201100l
+#ifdef CPP_11
 class CpuTimer : public Timer
 {
 public:

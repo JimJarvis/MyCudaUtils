@@ -25,6 +25,12 @@ using std::ostream;
 typedef unsigned long ulong;
 typedef unsigned int uint;
 
+#if __cplusplus > 201100l
+#define CPP_11
+#else
+#undef CPP_11
+#endif
+
 /**************************************
 ************ Printing **************
 **************************************/
