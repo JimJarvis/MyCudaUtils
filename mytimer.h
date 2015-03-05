@@ -44,6 +44,8 @@ public:
 		cout << msg << elapsed() << " " << scaleName << " elapsed" << endl;
 	}
 
+	virtual void showTime() {};
+
 protected:
 	// must return in seconds
 	virtual double _elapsed_sec() = 0;
@@ -51,11 +53,14 @@ protected:
 	Resolution scale;
 };
 
+#if __cplusplus > 201100l
 class CpuTimer : public Timer
 {
 public:
 	CpuTimer(Resolution scale = Resolution::Millisec) : Timer(scale)
 	{ }
+
+	~CpuTimer() {}
 
 	void start()
 	{
@@ -64,7 +69,7 @@ public:
 
 	void showTime()
 	{
-		auto t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+		time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 		cout << ctime(&t) << endl;
 	}
 
@@ -79,5 +84,34 @@ protected:
 		return elapsed_seconds.count();
 	}
 };
+
+#else // doesn't support C++11
+class CpuTimer : public Timer
+{
+public:
+	CpuTimer(Resolution scale = Resolution::Millisec) :
+		Timer(scale), startTime(0), stopTime(0)
+	{
+	}
+
+	~CpuTimer() {}
+
+	void start()
+	{
+		startTime = clock();
+	}
+
+private:
+	clock_t startTime, stopTime;
+
+protected:
+	double _elapsed_sec()
+	{
+		stopTime = clock();
+		return (double)(stopTime - startTime) / CLOCKS_PER_SEC;
+	}
+};
+
+#endif
 
 #endif /* MYTIMER_H_ */

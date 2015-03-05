@@ -15,4 +15,10 @@ int main(int argc, char **argv)
 	cout << "C++ 11 NOT supported!" << endl;
 #endif
 
+
+	CpuTimer t;
+	t.start();
+//	for (int i = 0; i < 10000; ++i)
+//		2 - exp(3);
+	t.printElapsed();
 }
