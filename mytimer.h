@@ -29,6 +29,7 @@ public:
 
 	ulong elapsed()
 	{
+		// std::round doesn't work in C++98
 		return ::round(_elapsed_sec() * (scale == Sec ? 1 :
 					scale == Millisec ? 1000 :
 					scale == Microsec ? 1e6 : 1));
