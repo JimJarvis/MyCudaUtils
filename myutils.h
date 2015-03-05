@@ -25,10 +25,17 @@ using std::ostream;
 typedef unsigned long ulong;
 typedef unsigned int uint;
 
+/****** Recognition macros ******/
 #if __cplusplus > 201100l
-#define CPP_11
+#define is_CPP_11
 #else
-#undef CPP_11
+#undef is_CPP_11
+#endif
+
+#if defined(__NVCC__) || defined(__CUDACC__)
+#define is_CUDA
+#else
+#undef is_CUDA
 #endif
 
 /**************************************
@@ -57,7 +64,7 @@ std::ostream& operator<<(std::ostream& oss, vector<T>& vec)
 }
 
 /****** Rvalue overloaded printing ******/
-#ifdef CPP_11
+#ifdef is_CPP_11
 template<typename Container>
 string container2str(Container&& vec,
 		string leftDelimiter="[", string rightDelimiter="]")

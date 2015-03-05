@@ -8,7 +8,7 @@
 
 #include "myutils.h"
 #include <ctime>
-#ifdef CPP_11
+#ifdef is_CPP_11
 #include <chrono>
 #endif
 
@@ -60,7 +60,7 @@ protected:
 	Resolution scale;
 };
 
-#ifdef CPP_11
+#ifdef is_CPP_11
 class CpuTimer : public Timer
 {
 public:
@@ -120,5 +120,48 @@ protected:
 };
 
 #endif
+
+/************************************/
+/****** GPU timer by CudaEvent API ******/
+#ifdef is_CUDA
+#include "cuda.h"
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+class GpuTimer : public Timer
+{
+public:
+	GpuTimer(Resolution scale = Resolution::Millisec) : Timer(scale)
+	{
+		cudaEventCreate(&startTime);
+		cudaEventCreate(&stopTime);
+	}
+
+	~GpuTimer()
+	{
+		cudaEventDestroy(startTime);
+		cudaEventDestroy(stopTime);
+	}
+
+	void start()
+	{
+		cudaEventRecord(startTime, 0);
+	}
+
+private:
+	cudaEvent_t startTime;
+	cudaEvent_t stopTime;
+
+protected:
+	double _elapsed_sec()
+	{
+		cudaEventRecord(stopTime, 0);
+
+		float elapsed;
+		cudaEventSynchronize(stopTime);
+		cudaEventElapsedTime(&elapsed, startTime, stopTime);
+		return elapsed / 1000.0;
+	}
+};
+#endif /* GPU timer */
 
 #endif /* MYTIMER_H_ */
