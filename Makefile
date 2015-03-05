@@ -15,7 +15,7 @@ endif
 #========= Source files config ==========
 MAIN=test
 
-HEADERS=myutils.h gputils.h mytimer.h
+HEADERS=myutils.h gputils.h mytimer.h fileutils.h
 OBJS=$(MAIN).o
 
 # $@ left hand side of ':'

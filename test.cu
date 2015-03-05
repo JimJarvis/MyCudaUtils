@@ -6,6 +6,7 @@
  * http://scrupulousabstractions.tumblr.com/post/36441490955/eclipse-mingw-builds
  */
 #include "mytimer.h"
+#include "fileutils.h"
 
 int main(int argc, char **argv)
 {
@@ -25,13 +26,14 @@ int main(int argc, char **argv)
 	double p = 66;
 	GpuTimer t;
 	t.start();
-	for (int i = 0; i < 10000000; ++i)
+	for (int i = 0; i < 30000000; ++i)
 		p += i / p - std::sqrt(p);
 
-	t.setResolution(Timer::Millisec).printElapsed();
+	t.setResolution(Timer::Sec).printElapsed();
 
 	vector<int> a;
 	a.push_back(5); a.push_back(1); a.push_back(4); a.push_back(9); a.push_back(0);
 	cout << a << endl;
-	cout << p << endl;
+
+	FileReader<uint> reader("shit");
 }

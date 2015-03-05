@@ -1,3 +1,7 @@
+/*
+ * Eona Studio (c) 2015
+ * Author: Jim Fan
+ */
 #ifndef gpu_utils_h__
 #define gpu_utils_h__
 
@@ -23,63 +27,6 @@ inline void gpuCheckError(cudaError_t code, const char *file, int line)
 	}
 }
 
-/*
-template<typename T>
-class FileReader
-{
-public:
-	// ugly workaround for non C++11 CUDA 5.5
-	FileReader(char *filename)
-		: ifs(filename), sepLeng(0)
-	{ 
-		if (!ifs.is_open())
-			cout << "FileReader: " + string(filename) + " error" << endl;
-	}
-
-	~FileReader()
-	{
-		ifs.close();
-	}
-
-	FileReader& setSeperatorLength(int sepLeng)
-	{
-		this->sepLeng = sepLeng;
-		return *this;
-	}
-
-	T read()
-	{
-		T token;
-		ifs >> token;
-        char crap; // discard
-        int len = this->sepLeng;
-		while (--len >= 0 && ifs >> crap);
-		return token;
-	}
-
-	vector<T> toVector(int size = -3)
-	{
-		vector<T> vec;
-		T token;
-		while (ifs >> token && (size == -3 || size-- > 0))
-		{
-			vec.push_back(token);
-            char crap; // discard
-            int len = this->sepLeng;
-            while (--len >= 0 && ifs >> crap);
-		}
-		return vec;
-	}
-
-private:
-	ifstream ifs;
-	int sepLeng;
-};
-*/
-
-/**************************************
-************ CPU - GPU operations **************
-**************************************/
 template<typename T>
 void gMemcpyVectorToDevice(const vector<T>& h_data, T *d_data)
 {
