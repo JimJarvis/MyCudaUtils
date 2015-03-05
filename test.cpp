@@ -16,9 +16,15 @@ int main(int argc, char **argv)
 #endif
 
 
+	double p = 66;
 	CpuTimer t;
 	t.start();
-//	for (int i = 0; i < 10000; ++i)
-//		2 - exp(3);
-	t.printElapsed();
+	for (int i = 0; i < 10000000; ++i)
+		p += i / p - std::sqrt(p);
+
+	t.setResolution(Timer::Millisec).printElapsed();
+
+	vector<int> a {1, 2, 3, 4, 5};
+	cout << a << endl;
+	cout << p << endl;
 }

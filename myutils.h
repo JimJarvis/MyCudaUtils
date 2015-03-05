@@ -49,23 +49,28 @@ string container2str(Container& vec,
 	return (s.size() > leftDelimiter.size() ?
 			s.substr(0, s.size() - 2) : s) + rightDelimiter;
 }
-//template<typename Container>
-//string container2str(Container&& vec,
-//		string leftDelimiter="[", string rightDelimiter="]")
-//{
-//	return container2str(vec, leftDelimiter, rightDelimiter);
-//}
 
 template<typename T>
 std::ostream& operator<<(std::ostream& oss, vector<T>& vec)
 {
 	return oss << container2str(vec);
 }
-//template<typename T>
-//std::ostream& operator<<(std::ostream& oss, vector<T>&& vec)
-//{
-//	return oss << vec;
-//}
+
+/****** Rvalue overloaded printing ******/
+#ifdef CPP_11
+template<typename Container>
+string container2str(Container&& vec,
+		string leftDelimiter="[", string rightDelimiter="]")
+{
+	return container2str(vec, leftDelimiter, rightDelimiter);
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& oss, vector<T>&& vec)
+{
+	return oss << vec;
+}
+#endif
 
 // print basic array
 template <typename T>

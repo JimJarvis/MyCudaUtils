@@ -24,6 +24,7 @@ public:
 	{ }
 
 	virtual ~Timer() {};
+
 	virtual void start() = 0;
 
 	ulong elapsed()
@@ -42,6 +43,12 @@ public:
 					scale == Resolution::Microsec ? "microseconds" : "";
 
 		cout << msg << elapsed() << " " << scaleName << " elapsed" << endl;
+	}
+
+	Timer& setResolution(Resolution scale)
+	{
+		this->scale = scale;
+		return *this;
 	}
 
 	virtual void showTime() {};
