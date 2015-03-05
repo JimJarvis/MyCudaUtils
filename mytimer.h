@@ -29,18 +29,18 @@ public:
 
 	ulong elapsed()
 	{
-		return std::round(_elapsed_sec() * (scale == Resolution::Sec ? 1 :
-					scale == Resolution::Millisec ? 1000 :
-					scale == Resolution::Microsec ? 1e6 : 1));
+		return ::round(_elapsed_sec() * (scale == Sec ? 1 :
+					scale == Millisec ? 1000 :
+					scale == Microsec ? 1e6 : 1));
 	}
 
 	void printElapsed(string msg = "")
 	{
 		if (msg != "")
 			msg += ": ";
-		string scaleName = scale == Resolution::Sec ? "seconds" :
-					scale == Resolution::Millisec ? "milliseconds" :
-					scale == Resolution::Microsec ? "microseconds" : "";
+		string scaleName = scale == Sec ? "seconds" :
+					scale == Millisec ? "milliseconds" :
+					scale == Microsec ? "microseconds" : "";
 
 		cout << msg << elapsed() << " " << scaleName << " elapsed" << endl;
 	}
@@ -64,7 +64,7 @@ protected:
 class CpuTimer : public Timer
 {
 public:
-	CpuTimer(Resolution scale = Resolution::Millisec) : Timer(scale)
+	CpuTimer(Resolution scale = Millisec) : Timer(scale)
 	{ }
 
 	~CpuTimer() {}
@@ -96,7 +96,7 @@ protected:
 class CpuTimer : public Timer
 {
 public:
-	CpuTimer(Resolution scale = Resolution::Millisec) :
+	CpuTimer(Resolution scale = Millisec) :
 		Timer(scale), startTime(0), stopTime(0)
 	{
 	}
@@ -130,7 +130,7 @@ protected:
 class GpuTimer : public Timer
 {
 public:
-	GpuTimer(Resolution scale = Resolution::Millisec) : Timer(scale)
+	GpuTimer(Resolution scale = Millisec) : Timer(scale)
 	{
 		cudaEventCreate(&startTime);
 		cudaEventCreate(&stopTime);
