@@ -72,6 +72,27 @@ void gMemcpyDeviceToHost(T *d_data, T *h_data, size_t size)
 }
 
 template<typename T>
+void gMemcpyHostToConstant(T *h_data, const T *d_const_data, size_t size)
+{
+	CUDA_CHECK(
+		cudaMemcpyToSymbol((const void *)d_const_data,
+			(void *) h_data,
+			size * sizeof(T))
+	);
+}
+
+template<typename T>
+void gMemcpyVectorToConstant(const vector<T>& h_data, const T* d_const_data)
+{
+	// WARNING: MUST cast to CONST void *!!!
+	CUDA_CHECK(
+		cudaMemcpyToSymbol((const void *) d_const_data,
+			(void *) &h_data[0],
+			h_data.size() * sizeof(T))
+	);
+}
+
+template<typename T>
 T *gMalloc(size_t size)
 {
 	T* d_data;
