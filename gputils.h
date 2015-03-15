@@ -16,6 +16,8 @@ void __syncthreads();
 void atomicAdd(uint*, uint);
 #endif
 
+namespace {
+
 #define CUDA_CHECK(ans) { gpuCheckError((ans), __FILE__, __LINE__); }
 inline void gpuCheckError(cudaError_t code, const char *file, int line)
 {
@@ -114,4 +116,5 @@ void gFree(T *d_data)
 	CUDA_CHECK(cudaFree(d_data));
 }
 
+} // end of anonymous namespace
 #endif // gpu_utils_h__

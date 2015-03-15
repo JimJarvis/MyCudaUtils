@@ -16,6 +16,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 using std::vector;
 using std::string;
 using std::cout;
@@ -38,6 +39,8 @@ typedef unsigned int uint;
 #undef is_CUDA
 #endif
 
+// anonymous namespace to avoid multiple definition linker error
+namespace {
 /**************************************
 ************ Printing **************
 **************************************/
@@ -101,4 +104,6 @@ void myassert(bool cond, string errmsg = "")
 		exit(1);
 	}
 }
+
+} // end of anonymous namespace
 #endif /* MYUTILS_H_ */

@@ -8,6 +8,8 @@
 #include "myutils.h"
 using std::ifstream;
 
+namespace {
+
 template<typename T>
 class FileReader
 {
@@ -65,4 +67,5 @@ private:
 };
 
 
+} // end of anonymous namespace
 #endif /* FILEUTILS_H_ */
