@@ -4,8 +4,8 @@
  * Author: Jim Fan
  * Common C++ header inclusion and print/vector utils
  */
-#ifndef MYUTILS_H_
-#define MYUTILS_H_
+#ifndef UTILS_H_
+#define UTILS_H_
 
 #include <iostream>
 #include <cstdio>
@@ -14,15 +14,23 @@
 #include <memory>
 #include <fstream>
 #include <vector>
+#include <stack>
+#include <queue>
+#include <deque>
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <functional>
+#include <stdexcept>
+#include <climits>
+
 using std::vector;
 using std::string;
 using std::cout;
 using std::cerr;
 using std::endl;
 using std::ostream;
+using std::move;
 typedef unsigned long ulong;
 typedef unsigned int uint;
 
@@ -105,5 +113,14 @@ void myassert(bool cond, string errmsg = "")
 	}
 }
 
+void printTitle(string title = "", int leng = 10)
+{
+	string sep = "";
+	for (int i = 0; i < leng; ++i)
+		sep += "=";
+
+	cout << sep << " " << title << " " << sep << " \n";
+}
+
 } // end of anonymous namespace
-#endif /* MYUTILS_H_ */
+#endif /* UTILS_H_ */
