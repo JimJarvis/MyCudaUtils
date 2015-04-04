@@ -7,6 +7,7 @@
  */
 #include "mytimer.h"
 #include "fileutils.h"
+#include "gpu_utils.h"
 
 #ifdef is_CUDA
 __global__ void testkernel()

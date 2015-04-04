@@ -23,7 +23,7 @@ public:
 		: ifs(filename), sepLeng(0)
 	{
 		if (!ifs.is_open())
-			cout << string("FileReader: ") + filename + " error" << endl;
+			cerr << string("FileReader: ") + filename + " error" << endl;
 	}
 
 	~FileReader()
@@ -45,6 +45,22 @@ public:
         int len = this->sepLeng;
 		while (--len >= 0 && ifs >> crap);
 		return token;
+	}
+
+	/**
+	 * If read fails, return false
+	 */
+	bool read(T &output)
+	{
+		if (ifs >> output)
+		{
+			char crap; // discard
+			int len = this->sepLeng;
+			while (--len >= 0 && ifs >> crap);
+			return true;
+		}
+		else
+			return false;
 	}
 
 	vector<T> toVector(int size = -3)
